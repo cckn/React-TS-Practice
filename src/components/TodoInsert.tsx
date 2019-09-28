@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import { MdAdd } from 'react-icons/md'
 import './TodoInsert.scss'
+import { OnInsert } from './types'
 
 interface IProps {
-  onInsert: (text: string) => void
+  onInsert: OnInsert
 }
 
 const TodoInsert: React.FC<IProps> = (props) => {

@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react'
 import TodoTemplate from './components/TodoTemplate'
 import TodoInsert from './components/TodoInsert'
 import TodoList from './components/TodoList'
-import { ITodo, OnRemove } from './components/types'
+import { ITodo, OnRemove, OnInsert, OnToggle } from './components/types'
 
 const App: React.FC = () => {
   const initialTodos: ITodo[] = [
@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [todos, setTodos] = useState(initialTodos)
 
   const nextId = useRef(4)
-  const onInsert = useCallback(
+  const onInsert: OnInsert = useCallback(
     (text: string) => {
       const todo: ITodo = {
         id: nextId.current,
@@ -33,10 +33,28 @@ const App: React.FC = () => {
     [todos],
   )
 
+  const onToggle: OnToggle = useCallback(
+    (id: number) => {
+      setTodos(
+        todos.map((todo) => {
+          if (todo.id === id) {
+            return { ...todo, checked: !todo.checked }
+          }
+          return todo
+        }),
+      )
+    },
+    [todos],
+  )
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove}></TodoList>
+      <TodoList
+        todos={todos}
+        onRemove={onRemove}
+        onToggle={onToggle}
+      ></TodoList>
     </TodoTemplate>
   )
 }
