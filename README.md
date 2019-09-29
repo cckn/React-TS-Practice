@@ -1,16 +1,11 @@
-# MyTodoApp
-### 리액트를 다루는 기술 개정판 참조
+# 리액트를 다루는 기술 개정판
 ### JS로 이루어진 예시 프로젝트를 TS로 개발
 
 
-![todoApp](docs/todoApp.jpg)
 
-## Skills
-![skills](docs/skills.jpg)
-- React 
-  - CRA
-  - Hooks
-- TypeScript
-- Sass
+# 깃헙 Repo 관리
+- 한 책에서 여러번 예제를 다루는데 여러 Repo를 쓸 필요 있을까 
+- MonoRepo형식으로 한 Repo에서 전부 다루도록 하자
+
 
 
