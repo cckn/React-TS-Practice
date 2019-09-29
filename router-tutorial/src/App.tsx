@@ -18,9 +18,9 @@ const App: React.FC = () => {
           <li>
             프로필
             <ul>
-              {Object.keys(data).map((username) => {
+              {Object.keys(data).map((username, index) => {
                 return (
-                  <li>
+                  <li key={index}>
                     <Link to={`/profiles/${username}`}>{username}</Link>
                   </li>
                 )
