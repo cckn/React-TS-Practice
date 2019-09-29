@@ -19,6 +19,7 @@ const Profile: React.FC<RouteComponentProps<IParams>> = ({ match }) => {
 
   const profile = data[username]
 
+  // 예외처리
   if (!profile) {
     return <div>존재하지 않는 사용자입니다. </div>
   }
