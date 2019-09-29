@@ -1,7 +1,26 @@
 import React from 'react'
+import { Route, Link } from 'react-router-dom'
+import Home from './Home'
+import About from './About'
 
 const App: React.FC = () => {
-  return <div className="App">Learning React</div>
+  return (
+    <>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">홈</Link>
+          </li>
+          <li>
+            <Link to="/about">소개</Link>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <Route path="/" exact component={Home}></Route>
+      <Route path={['/about', '/info']} component={About}></Route>
+    </>
+  )
 }
 
 export default App
