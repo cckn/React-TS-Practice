@@ -19,7 +19,7 @@ const HistorySample: React.FC<Props> = (props) => {
         unBlock()
       }
     }
-  }, [])
+  }, [props.history])
   return (
     <div>
       <button onClick={handleGoBack}>뒤로</button>

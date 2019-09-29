@@ -2,6 +2,8 @@ import React from 'react'
 import Profile, { data } from './Profile'
 import { Link, Route } from 'react-router-dom'
 
+import WithRouterSample from './WithRouterSample'
+
 const Profiles: React.FC = () => {
   return (
     <div>
@@ -15,13 +17,13 @@ const Profiles: React.FC = () => {
           )
         })}
       </ul>
-
       <Route
         path="/profiles"
         exact
         render={() => <div>사용자를 선택해 주세요</div>}
       ></Route>
       <Route path="/profiles/:username" component={Profile}></Route>
+      <WithRouterSample />
     </div>
   )
 }
