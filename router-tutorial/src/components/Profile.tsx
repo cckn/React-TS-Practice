@@ -1,5 +1,6 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
+import WithRouterSample from './WithRouterSample'
 
 export interface IProfiles {
   [username: string]: { name: string; description: string }
@@ -25,12 +26,11 @@ const Profile: React.FC<RouteComponentProps<IParams>> = ({ match }) => {
   }
   return (
     <>
-      <div>
-        <h3>
-          {username}({profile.name})
-        </h3>
-        <p>{profile.description}</p>
-      </div>
+      <h3>
+        {username}({profile.name})
+      </h3>
+      <p>{profile.description}</p>
+      <WithRouterSample />
     </>
   )
 }

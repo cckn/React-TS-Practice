@@ -1,10 +1,10 @@
 import React from 'react'
-import Profile, { data } from './Profile'
-import { Link, Route } from 'react-router-dom'
+import { Route, NavLink } from 'react-router-dom'
 
-import WithRouterSample from './WithRouterSample'
+import Profile, { data } from './Profile'
 
 const Profiles: React.FC = () => {
+  const activeStyle = { background: 'black', color: 'white' }
   return (
     <div>
       <h3>사용자 목룍: </h3>
@@ -12,7 +12,9 @@ const Profiles: React.FC = () => {
         {Object.keys(data).map((username, index) => {
           return (
             <li key={index}>
-              <Link to={`/profiles/${username}`}>{username}</Link>
+              <NavLink to={`/profiles/${username}`} activeStyle={activeStyle}>
+                {username}
+              </NavLink>
             </li>
           )
         })}
@@ -23,7 +25,6 @@ const Profiles: React.FC = () => {
         render={() => <div>사용자를 선택해 주세요</div>}
       ></Route>
       <Route path="/profiles/:username" component={Profile}></Route>
-      <WithRouterSample />
     </div>
   )
 }
