@@ -4,12 +4,15 @@ import axios from 'axios'
 const App: React.FC = () => {
   const [data, setData] = useState(null)
 
-  const onClick = () => {
-    axios
-      .get('http://jsonplaceholder.typicode.com/todos/1')
-      .then((responce) => {
-        setData(responce.data)
-      })
+  const onClick = async () => {
+    try {
+      const { data } = await axios.get(
+        'http://jsonplaceholder.typicode.com/todos/1',
+      )
+      setData(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
