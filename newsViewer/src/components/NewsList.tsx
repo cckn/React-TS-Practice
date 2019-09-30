@@ -31,17 +31,25 @@ const sampleArticle: Article = {
   urlToImage: 'http://via.placeholder.com/160',
 }
 
-const NewsList: React.FC = () => {
+interface IProps {
+  category: string
+}
+const NewsList: React.FC<IProps> = (props) => {
+  const { category } = props
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
+
       try {
-        const response = await axios.get(
-          'https://newsapi.org/v2/top-headlines?country=kr&apiKey=87fb81b770dc4ccfbcdce4d469693de6',
-        )
+        const url = `https://newsapi.org/v2/top-headlines?country=kr&${
+          category === 'all' ? '' : `category=${category}&`
+        }apiKey=87fb81b770dc4ccfbcdce4d469693de6`
+        console.log(url)
+
+        const response = await axios.get(url)
         setArticles(response.data.articles)
       } catch (e) {
         console.log(e)
@@ -50,7 +58,7 @@ const NewsList: React.FC = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [category])
 
   if (loading) {
     return <NewsListBlock>대기 중</NewsListBlock>
