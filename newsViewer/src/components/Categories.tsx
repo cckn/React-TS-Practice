@@ -1,5 +1,6 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 interface ICategory {
   name: string
@@ -7,6 +8,7 @@ interface ICategory {
 }
 
 const categories: ICategory[] = [
+  { name: 'all', text: '전체보기' },
   { name: 'business', text: '비즈니스' },
   { name: 'entertainment', text: '엔터테인먼트' },
   { name: 'health', text: '건강' },
@@ -26,9 +28,7 @@ const CategoriesBlock = styled.div`
     overflow: auto;
   }
 `
-const Category = styled.div<{
-  active?: boolean
-}>`
+const Category = styled(NavLink)`
   font-size: 1.125rem;
   cursor: pointer;
   white-space: pre;
@@ -38,38 +38,32 @@ const Category = styled.div<{
   &:hover {
     color: #495057;
   }
-  ${(props) =>
-    props.active &&
-    css`
-      font-weight: 600;
-      border-bottom: 2px solid #22b8cf;
-      color: #22b8cf;
-      &:hover {
-        color: #3bc9db;
-      }
-    `}
+
+  &.active {
+    font-weight: 600;
+    border-bottom: 2px solid #22b8cf;
+    color: #22b8cf;
+    &:hover {
+      color: #3bc9db;
+    }
+  }
 
   & + & {
     margin-left: 1rem;
   }
 `
 
-interface IProps {
-  category: string
-  onSelect: (category: string) => void
-}
-
-const Categories: React.FC<IProps> = (props) => {
-  const { category, onSelect } = props
+const Categories: React.FC = () => {
   return (
     <CategoriesBlock>
       {categories.map((c) => {
         const { name, text } = c
         return (
           <Category
+            to={name === 'all' ? '/' : `/${name}`}
+            activeClassName="active"
+            exact={name === 'all'}
             key={name}
-            onClick={() => onSelect(name)}
-            active={name === category}
           >
             {text}
           </Category>

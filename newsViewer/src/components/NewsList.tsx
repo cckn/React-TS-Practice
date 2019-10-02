@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import NewsItem from './NewsItem'
 import axios from 'axios'
+import usePromise from '../lib/usePromise'
 
 const NewsListBlock = styled.div`
   box-sizing: border-box;
@@ -24,50 +25,34 @@ export interface Article {
   urlToImage: string
 }
 
-const sampleArticle: Article = {
-  title: 'tti',
-  description: 'desc',
-  url: 'http://naver.com',
-  urlToImage: 'http://via.placeholder.com/160',
-}
-
 interface IProps {
   category: string
 }
 const NewsList: React.FC<IProps> = (props) => {
   const { category } = props
-  const [articles, setArticles] = useState<Article[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
+  const [loading, response, error] = usePromise(() => {
+    const baseUrl = `https://newsapi.org/v2/top-headlines?country=kr&${
+      category === 'all' ? '' : `category=${category}&`
+    }apiKey=87fb81b770dc4ccfbcdce4d469693de6`
+    console.log(baseUrl)
 
-      try {
-        const url = `https://newsapi.org/v2/top-headlines?country=kr&${
-          category === 'all' ? '' : `category=${category}&`
-        }apiKey=87fb81b770dc4ccfbcdce4d469693de6`
-        console.log(url)
-
-        const response = await axios.get(url)
-        setArticles(response.data.articles)
-      } catch (e) {
-        console.log(e)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
+    return axios.get(baseUrl)
   }, [category])
+
+  console.log(category, [loading, response, error])
 
   if (loading) {
     return <NewsListBlock>대기 중</NewsListBlock>
   }
-
-  if (!articles) {
+  if (!response) {
     return null
   }
+  if (error) {
+    return <NewsListBlock>에러 발생</NewsListBlock>
+  }
 
+  const { articles }: { articles: Article[] } = response.data
   return (
     <NewsListBlock>
       {articles.map((article) => (
