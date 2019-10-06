@@ -1,0 +1,18 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toggle {
+  border: 2px solid black;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  box-sizing: border-box;
+  background: yellow;
+}
+
+.toggle.active {
+  background: blue;
+}
